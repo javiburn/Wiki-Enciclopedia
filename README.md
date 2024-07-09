@@ -23,7 +23,7 @@ Wikipedia is a free online encyclopedia with numerous entries on various topics.
 7. **Markdown to HTML Conversion**: Converts Markdown content to HTML for display.
 
 ## Getting Started
-1. **Download the Project**: Download the project from [this link](https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip) and unzip it.
+1. **Download the Project**: Clone the repository.
 2. **Install Dependencies**: Ensure you have Python and Django installed. Install the required packages:
     ```bash
     pip install django markdown2
