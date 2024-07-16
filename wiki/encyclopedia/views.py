@@ -6,7 +6,15 @@ import markdown2
 # Create your views here.
 
 def index(request):
-    return render(request, "encyclopedia/index.html")
+    if request.method == "POST":
+        print(request.POST['q'])
+        try:
+            html = markdown2.markdown(util.get_entry(request.POST['q']))
+        except:
+            return HttpResponseNotFound("<h1>Page not found</h1>")
+        return HttpResponse(html)
+    else:
+         return render(request, "encyclopedia/index.html")
 
 def test(request):
     return HttpResponseNotFound()
