@@ -7,12 +7,14 @@ import markdown2
 
 def index(request):
     if request.method == "POST":
-        print(request.POST['q'])
         try:
             html = markdown2.markdown(util.get_entry(request.POST['q']))
         except:
             return HttpResponseNotFound("<h1>Page not found</h1>")
-        return HttpResponse(html)
+        return render(request, "encyclopedia/entry.html", {
+            "name": util.get_entry(request.POST['q']).title(), \
+            "content": html
+        })
     else:
          return render(request, "encyclopedia/index.html")
 
@@ -24,4 +26,7 @@ def search(request, name):
         html = markdown2.markdown(util.get_entry(name))
     except:
         return HttpResponseNotFound("<h1>Page not found</h1>")
-    return HttpResponse(html)
+    return render(request, "encyclopedia/entry.html", {
+            "name": name.title(), \
+            "content": html
+        })
