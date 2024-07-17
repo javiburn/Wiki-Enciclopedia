@@ -27,6 +27,7 @@ def test(request):
     return HttpResponseNotFound()
 
 def search(request, name):
+    name = name.lower()
     try:
         html = markdown2.markdown(util.get_entry(name))
     except:
