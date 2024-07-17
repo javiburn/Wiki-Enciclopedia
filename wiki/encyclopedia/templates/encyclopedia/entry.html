@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+{% extends "encyclopedia/layout.html" %}
 
-<html lang="en">
-    <head>
-        <title>{{ name }}</title>
-    </head>
-    <body>
-        {{ content | safe }}
-    </body>
-</html>
+{% block title %}
+        {{ name}}
+{% endblock %}
+
+{% block body %}
+{{ content | safe }}
+{% endblock %}%

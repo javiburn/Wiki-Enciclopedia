@@ -10,12 +10,17 @@ def index(request):
     entries_md = glob.glob1(path, "*.md")
     entries = [ent[: -3].title() for ent in entries_md]
     if request.method == "POST":
+        name = request.POST['q']
         try:
-            html = markdown2.markdown(util.get_entry(request.POST['q']))
+            html = markdown2.markdown(util.get_entry(name))
         except:
-            return HttpResponseNotFound("<h1>Page not found</h1>")
+            entries_md = glob.glob1(path, f"*{name}*.md")
+            entries = [ent[: -3].title() for ent in entries_md]
+            return render(request, "encyclopedia/search.html", {
+                "entries": entries,
+            })
         return render(request, "encyclopedia/entry.html", {
-            "name": util.get_entry(request.POST['q']).title(), \
+            "name": util.get_entry(name).title(), \
             "content": html
         })
     else:
@@ -26,7 +31,7 @@ def index(request):
 def test(request):
     return HttpResponseNotFound()
 
-def search(request, name):
+def search_by_url(request, name):
     name = name.lower()
     try:
         html = markdown2.markdown(util.get_entry(name))
